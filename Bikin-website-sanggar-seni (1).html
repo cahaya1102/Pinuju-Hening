@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sanggar Seni Budaya Pinuju Hening - Melestarikan Budaya Jawa</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+    :root {
+        --jawa-green: #1A4D2E;
+        --jawa-red: #B91C1C;
+        --jawa-white: #FAF9F6;
+        --jawa-gold: #C9A961;
+        --jawa-dark: #1C1917;
+    }
+    html {
+        scroll-behavior: smooth;
+    }
+    body {
+        font-family: 'Lato', sans-serif;
+        background-color: var(--jawa-white);
+        color: var(--jawa-dark);
+    }
+    .font-playfair {
+        font-family: 'Playfair Display', serif;
+    }
+    .batik-pattern {
+        background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231A4D2E' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+    .hero-overlay {
+        background: linear-gradient(135deg, rgba(26, 77, 46, 0.9) 0%, rgba(185, 28, 28, 0.7) 100%);
+    }
+    .nav-link {
+        position: relative;
+    }
+    .nav-link::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: -4px;
+        left: 0;
+        background-color: var(--jawa-gold);
+        transition: width 0.3s ease;
+    }
+    .nav-link:hover::after {
+        width: 100%;
+    }
+    .section-divider {
+        height: 3px;
+        width: 80px;
+        background: linear-gradient(90deg, var(--jawa-green) 0%, var(--jawa-red) 100%);
+        margin: 1rem auto;
+    }
+    .card-hover {
+        transition: all 0.4s ease;
+    }
+    .card-hover:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    }
+    .btn-primary {
+        background: linear-gradient(135deg, var(--jawa-green) 0%, #2d6a4f 100%);
+        transition: all 0.3s ease;
+    }
+    .btn-primary:hover {
+        background: linear-gradient(135deg, #2d6a4f 0%, var(--jawa-green) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(26, 77, 46, 0.3);
+    }
+    .btn-secondary {
+        background: linear-gradient(135deg, var(--jawa-red) 0%, #dc2626 100%);
+        transition: all 0.3s ease;
+    }
+    .btn-secondary:hover {
+        background: linear-gradient(135deg, #dc2626 0%, var(--jawa-red) 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(185, 28, 28, 0.3);
+    }
+    .btn-whatsapp {
+        background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+        transition: all 0.3s ease;
+    }
+    .btn-whatsapp:hover {
+        background: linear-gradient(135deg, #128C7E 0%, #25D366 100%);
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(37, 211, 102, 0.3);
+    }
+    .gallery-item {
+        overflow: hidden;
+        position: relative;
+    }
+    .gallery-item img {
+        transition: transform 0.6s ease;
+    }
+    .gallery-item:hover img {
+        transform: scale(1.1);
+    }
+    .gallery-overlay {
+        background: linear-gradient(180deg, transparent 0%, rgba(26, 77, 46, 0.9) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+    .gallery-item:hover .gallery-overlay {
+        opacity: 1;
+    }
+    @keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    .animate-fadeInUp {
+        animation: fadeInUp 0.8s ease forwards;
+    }
+</style>
+</head>
+<body class="antialiased">
+<!-- Preload Logo -->
+<img id="logo-img" src="container:///mnt/data/logo-pinuju-hening.png" hidden alt="">
+
+<!-- Navbar -->
+<nav id="navbar" class="fixed w-full z-50 transition-all duration-300 bg-transparent">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between items-center h-20">
+            <div class="flex items-center space-x-3">
+                <img src="container:///mnt/data/logo-pinuju-hening.png" alt="Logo" class="h-12 w-12 object-contain">
+                <div>
+                    <h1 class="font-playfair font-bold text-white text-lg leading-tight">Pinuju Hening</h1>
+                    <p class="text-xs text-gray-200">Sanggar Seni Budaya</p>
+                </div>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#beranda" class="nav-link text-white hover:text-yellow-200 font-medium">Beranda</a>
+                <a href="#tentang" class="nav-link text-white hover:text-yellow-200 font-medium">Tentang</a>
+                <a href="#program" class="nav-link text-white hover:text-yellow-200 font-medium">Program</a>
+                <a href="#galeri" class="nav-link text-white hover:text-yellow-200 font-medium">Galeri</a>
+                <a href="#kontak" class="nav-link text-white hover:text-yellow-200 font-medium">Kontak</a>
+            </div>
+            <button id="mobile-menu-btn" class="md:hidden text-white text-2xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+        <div class="px-4 py-4 space-y-3">
+            <a href="#beranda" class="block py-2 text-gray-800 hover:text-green-700 font-medium">Beranda</a>
+            <a href="#tentang" class="block py-2 text-gray-800 hover:text-green-700 font-medium">Tentang</a>
+            <a href="#program" class="block py-2 text-gray-800 hover:text-green-700 font-medium">Program</a>
+            <a href="#galeri" class="block py-2 text-gray-800 hover:text-green-700 font-medium">Galeri</a>
+            <a href="#kontak" class="block py-2 text-gray-800 hover:text-green-700 font-medium">Kontak</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Hero Section -->
+<section id="beranda" class="relative h-screen flex items-center justify-center overflow-hidden">
+    <div class="absolute inset-0 z-0">
+        <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070" alt="Wayang" class="w-full h-full object-cover">
+        <div class="hero-overlay absolute inset-0"></div>
+    </div>
+    <div class="relative z-10 text-center text-white px-4 max-w-5xl mx-auto animate-fadeInUp">
+        <div class="mb-6 inline-block">
+            <img src="container:///mnt/data/logo-pinuju-hening.png" alt="Logo" class="h-24 w-24 md:h-32 md:w-32 mx-auto drop-shadow-2xl">
+        </div>
+        <h1 class="font-playfair text-4xl md:text-6xl lg:text-7xl font-bold mb-4 leading-tight">
+            Sanggar Seni Budaya<br>Pinuju Hening
+        </h1>
+        <div class="section-divider"></div>
+        <p class="text-lg md:text-xl lg:text-2xl mb-2 font-light">Mangesthi Luhuring Kabudayan Jawa</p>
+        <p class="text-base md:text-lg mb-8 text-gray-200 max-w-2xl mx-auto">Merawat kearifan lokal, menggugah kesadaran diri, dan menghidupkan nilai-nilai budaya Jawa yang luhur</p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="#tentang" class="btn-primary text-white px-8 py-4 rounded-full font-semibold text-lg shadow-lg">
+                <i class="fas fa-book-open mr-2"></i>Pelajari Lebih Lanjut
+            </a>
+            <a href="#kontak" class="bg-white text-green-800 px-8 py-4 rounded-full font-semibold text-lg shadow-lg hover:bg-gray-100 transition-all">
+                <i class="fas fa-phone-alt mr-2"></i>Hubungi Kami
+            </a>
+        </div>
+    </div>
+    <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white animate-bounce">
+        <i class="fas fa-chevron-down text-2xl"></i>
+    </div>
+</section>
+
+<!-- Tentang Kami -->
+<section id="tentang" class="py-20 batik-pattern">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-green-700 font-semibold text-sm uppercase tracking-wider">Tentang Kami</span>
+            <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-2 mb-4 text-gray-900">Mengenal Pinuju Hening</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12 items-center">
+            <div class="relative">
+                <div class="rounded-2xl overflow-hidden shadow-2xl">
+                    <img src="https://images.unsplash.com/photo-1533174072545-7a4b6adbb7?q=80&w=2070" alt="Budaya Jawa" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute -bottom-6 -right-6 bg-red-700 text-white p-6 rounded-xl shadow-xl hidden md:block">
+                    <p class="font-playfair text-3xl font-bold">15+</p>
+                    <p class="text-sm">Tahun Mengabdi</p>
+                </div>
+            </div>
+            <div>
+                <h3 class="font-playfair text-2xl md:text-3xl font-bold mb-6 text-gray-900">Visi Kami</h3>
+                <p class="text-lg text-gray-700 mb-6 leading-relaxed">
+                    Sanggar Seni Budaya Pinuju Hening hadir sebagai wadah pelestarian dan pengembangan seni budaya Jawa yang adiluhung. Kami berkomitmen untuk "Mangesthi Luhuring Kabudayan Jawa" - mengagungkan keluhuran budaya Jawa melalui berbagai kegiatan seni, pendidikan, dan spiritual.
+                </p>
+                <div class="space-y-4 mb-8">
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-check text-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1">Pelestarian Budaya</h4>
+                            <p class="text-gray-600">Menjaga warisan budaya Jawa agar tetap hidup dan relevan bagi generasi muda</p>
+                        </div>
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-check text-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1">Pendidikan Karakter</h4>
+                            <p class="text-gray-600">Membentuk budi pekerti luhur melalui nilai-nilai kearifan lokal Jawa</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start">
+                        <div class="bg-green-100 p-3 rounded-full mr-4">
+                            <i class="fas fa-check text-green-700"></i>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-gray-900 mb-1">Spiritual Kejawen</h4>
+                            <p class="text-gray-600">Mendalami ajaran spiritual Jawa untuk mencapai ketenangan batin dan keseimbangan hidup</p>
+                        </div>
+                    </div>
+                </div>
+                <a href="#program" class="btn-secondary text-white px-8 py-3 rounded-full font-semibold inline-block">
+                    Lihat Program Kami <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Program Unggulan -->
+<section id="program" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-red-700 font-semibold text-sm uppercase tracking-wider">Program Kami</span>
+            <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-2 mb-4 text-gray-900">Kegiatan Unggulan</h2>
+            <div class="section-divider"></div>
+            <p class="text-gray-600 max-w-2xl mx-auto mt-4">Beragam program yang kami selenggarakan untuk melestarikan dan mengembangkan seni budaya Jawa</p>
+        </div>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Program 1 -->
+            <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 shadow-lg card-hover border border-green-100">
+                <div class="bg-green-700 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-theater-masks text-white text-2xl"></i>
+                </div>
+                <h3 class="font-playfair text-xl font-bold mb-3 text-gray-900">Seni Tari Tradisional</h3>
+                <p class="text-gray-600 mb-4">Pembelajaran tari klasik Jawa seperti Bedhaya, Srimpi, Gambyong, dan tari kontemporer</p>
+                <a href="#kontak" class="text-green-700 font-semibold hover:text-green-800">Info Selengkapnya →</a>
+            </div>
+            <!-- Program 2 -->
+            <div class="bg-gradient-to-br from-red-50 to-white rounded-2xl p-8 shadow-lg card-hover border border-red-100">
+                <div class="bg-red-700 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-drum text-white text-2xl"></i>
+                </div>
+                <h3 class="font-playfair text-xl font-bold mb-3 text-gray-900">Karawitan & Gamelan</h3>
+                <p class="text-gray-600 mb-4">Pelatihan memainkan gamelan Jawa lengkap dan sinden untuk berbagai tingkatan</p>
+                <a href="#kontak" class="text-red-700 font-semibold hover:text-red-800">Info Selengkapnya →</a>
+            </div>
+            <!-- Program 3 -->
+            <div class="bg-gradient-to-br from-yellow-50 to-white rounded-2xl p-8 shadow-lg card-hover border border-yellow-100">
+                <div class="bg-yellow-700 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-book text-white text-2xl"></i>
+                </div>
+                <h3 class="font-playfair text-xl font-bold mb-3 text-gray-900">Macapat & Tembang</h3>
+                <p class="text-gray-600 mb-4">Pembelajaran tembang macapat, suluk, dan sastra Jawa klasik</p>
+                <a href="#kontak" class="text-yellow-700 font-semibold hover:text-yellow-800">Info Selengkapnya →</a>
+            </div>
+            <!-- Program 4 -->
+            <div class="bg-gradient-to-br from-green-50 to-white rounded-2xl p-8 shadow-lg card-hover border border-green-100">
+                <div class="bg-green-700 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-om text-white text-2xl"></i>
+                </div>
+                <h3 class="font-playfair text-xl font-bold mb-3 text-gray-900">Laku Spiritual Jawa</h3>
+                <p class="text-gray-600 mb-4">Meditasi, laku tirakat, dan pendalaman ajaran Kejawen untuk ketenangan batin</p>
+                <a href="#kontak" class="text-green-700 font-semibold hover:text-green-800">Info Selengkapnya →</a>
+            </div>
+            <!-- Program 5 -->
+            <div class="bg-gradient-to-br from-red-50 to-white rounded-2xl p-8 shadow-lg card-hover border border-red-100">
+                <div class="bg-red-700 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-palette text-white text-2xl"></i>
+                </div>
+                <h3 class="font-playfair text-xl font-bold mb-3 text-gray-900">Seni Rupa & Kerajinan</h3>
+                <p class="text-gray-600 mb-4">Batik, ukir kayu, kriya kulit, dan seni rupa tradisional Jawa lainnya</p>
+                <a href="#kontak" class="text-red-700 font-semibold hover:text-red-800">Info Selengkapnya →</a>
+            </div>
+            <!-- Program 6 -->
+            <div class="bg-gradient-to-br from-yellow-50 to-white rounded-2xl p-8 shadow-lg card-hover border border-yellow-100">
+                <div class="bg-yellow-700 w-16 h-16 rounded-xl flex items-center justify-center mb-6">
+                    <i class="fas fa-users text-white text-2xl"></i>
+                </div>
+                <h3 class="font-playfair text-xl font-bold mb-3 text-gray-900">Pendidikan Anak</h3>
+                <p class="text-gray-600 mb-4">Program khusus untuk anak-anak menanamkan nilai budaya sejak dini</p>
+                <a href="#kontak" class="text-yellow-700 font-semibold hover:text-yellow-800">Info Selengkapnya →</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Galeri -->
+<section id="galeri" class="py-20 batik-pattern">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-green-700 font-semibold text-sm uppercase tracking-wider">Galeri</span>
+            <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-2 mb-4 text-gray-900">Potret Kegiatan Kami</h2>
+            <div class="section-divider"></div>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+            <div class="gallery-item rounded-xl overflow-hidden shadow-lg col-span-2 row-span-2">
+                <img src="https://images.unsplash.com/photo-1578662996442-48f60103fc96?q=80&w=2070" alt="Wayang" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex items-end p-6">
+                    <p class="text-white font-semibold">Pagelaran Wayang Kulit</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1533174072545-7a4b6adadbb7?q=80&w=2070" alt="Tari" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex items-end p-4">
+                    <p class="text-white text-sm font-semibold">Tari Bedhaya</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=2070" alt="Gamelan" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex items-end p-4">
+                    <p class="text-white text-sm font-semibold">Gamelan Jawa</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1583202075361-2b4d2e4c8b4d?q=80&w=2070" alt="Batik" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex items-end p-4">
+                    <p class="text-white text-sm font-semibold">Membatik</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-lg">
+                <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=2070" alt="Acara" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex items-end p-4">
+                    <p class="text-white text-sm font-semibold">Ritual Adat</p>
+                </div>
+            </div>
+            <div class="gallery-item rounded-xl overflow-hidden shadow-lg col-span-2">
+                <img src="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2070" alt="Pertunjukan" class="w-full h-full object-cover">
+                <div class="gallery-overlay absolute inset-0 flex items-end p-6">
+                    <p class="text-white font-semibold">Pertunjukan Seni Kolosal</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Kontak -->
+<section id="kontak" class="py-20 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <span class="text-red-700 font-semibold text-sm uppercase tracking-wider">Kontak Kami</span>
+            <h2 class="font-playfair text-3xl md:text-5xl font-bold mt-2 mb-4 text-gray-900">Mari Bergabung Bersama Kami</h2>
+            <div class="section-divider"></div>
+            <p class="text-gray-600 max-w-2xl mx-auto mt-4">Hubungi kami untuk informasi lebih lanjut mengenai program, pendaftaran, atau jadwal kegiatan</p>
+        </div>
+        <div class="grid md:grid-cols-2 gap-12">
+            <div>
+                <div class="bg-gradient-to-br from-green-50 to-red-50 rounded-2xl p-8 shadow-lg mb-6">
+                    <h3 class="font-playfair text-2xl font-bold mb-6 text-gray-900">Informasi Kontak</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="bg-green-700 p-3 rounded-xl mr-4">
+                                <i class="fas fa-map-marker-alt text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Alamat Sanggar</h4>
+                                <p class="text-gray-600">Jl. Raya Budaya No. 123<br>Yogyakarta 55281, Indonesia</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-red-700 p-3 rounded-xl mr-4">
+                                <i class="fas fa-clock text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Jam Operasional</h4>
+                                <p class="text-gray-600">Senin - Jumat: 09.00 - 17.00 WIB<br>Sabtu: 09.00 - 15.00 WIB</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="bg-yellow-700 p-3 rounded-xl mr-4">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-bold text-gray-900 mb-1">Email</h4>
+                                <p class="text-gray-600">info@pinujuhening.org</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white rounded-2xl p-8 shadow-lg border border-gray-100">
+                    <h3 class="font-playfair text-xl font-bold mb-6 text-gray-900">Hubungi Pengurus via WhatsApp</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-green-50 transition-all">
+                            <div class="flex items-center">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Ki M Agus Supriadi</h4>
+                                    <p class="text-gray-600 text-sm">0823 1972 7184</p>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/6282319727184?text=Halo%20Ki%20Agus,%20saya%20ingin%20bertanya%20tentang%20Sanggar%20Pinuju%20Hening" target="_blank" class="btn-whatsapp text-white px-5 py-2 rounded-full font-semibold text-sm">
+                                <i class="fab fa-whatsapp mr-2"></i>Chat
+                            </a>
+                        </div>
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-xl hover:bg-green-50 transition-all">
+                            <div class="flex items-center">
+                                <div class="bg-green-700 w-12 h-12 rounded-full flex items-center justify-center mr-4">
+                                    <i class="fas fa-user text-white"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-gray-900">Ki Wahyu Widodo</h4>
+                                    <p class="text-gray-600 text-sm">0857 0740 9284</p>
+                                </div>
+                            </div>
+                            <a href="https://wa.me/6285707409284?text=Halo%20Ki%20Wahyu,%20saya%20ingin%20bertanya%20tentang%20Sanggar%20Pinuju%20Hening" target="_blank" class="btn-whatsapp text-white px-5 py-2 rounded-full font-semibold text-sm">
+                                <i class="fab fa-whatsapp mr-2"></i>Chat
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h4 class="font-bold text-gray-900 mb-4">Ikuti Kami</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="bg-green-700 hover:bg-green-800 w-12 h-12 rounded-full flex items-center justify-center text-white transition-all">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="bg-green-700 hover:bg-green-800 w-12 h-12 rounded-full flex items-center justify-center text-white transition-all">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="bg-green-700 hover:bg-green-800 w-12 h-12 rounded-full flex items-center justify-center text-white transition-all">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="#" class="bg-green-700 hover:bg-green-800 w-12 h-12 rounded-full flex items-center justify-center text-white transition-all">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="bg-gradient-to-br from-green-700 to-red-700 rounded-2xl p-8 shadow-lg text-white mb-6">
+                    <h3 class="font-playfair text-2xl font-bold mb-6">Kirim Pesan</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Nama Lengkap</label>
+                            <input type="text" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white" placeholder="Masukkan nama Anda">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white" placeholder="nama@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">No. Telepon</label>
+                            <input type="tel" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white" placeholder="08xxxxxxxxxx">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Program yang Diminati</label>
+                            <select class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:ring-2 focus:ring-white">
+                                <option class="text-gray-900">Pilih Program</option>
+                                <option class="text-gray-900">Seni Tari Tradisional</option>
+                                <option class="text-gray-900">Karawitan & Gamelan</option>
+                                <option class="text-gray-900">Macapat & Tembang</option>
+                                <option class="text-gray-900">Laku Spiritual Jawa</option>
+                                <option class="text-gray-900">Seni Rupa & Kerajinan</option>
+                                <option class="text-gray-900">Pendidikan Anak</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Pesan</label>
+                            <textarea rows="4" class="w-full px-4 py-3 rounded-lg bg-white/10 border border-white/20 text-white placeholder-white/60 focus:outline-none focus:ring-2 focus:ring-white" placeholder="Tulis pesan Anda..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-white text-green-700 px-6 py-3 rounded-lg font-bold hover:bg-gray-100 transition-all">
+                            Kirim Pesan <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="col-span-2 md:col-span-1">
+                <div class="flex items-center space-x-3 mb-4">
+                    <img src="container:///mnt/data/logo-pinuju-hening.png" alt="Logo" class="h-12 w-12 object-contain">
+                    <div>
+                        <h3 class="font-playfair font-bold text-lg">Pinuju Hening</h3>
+                        <p class="text-xs text-gray-400">Sanggar Seni Budaya</p>
+                    </div>
+                </div>
+                <p class="text-gray-400 text-sm mb-4">Mangesthi Luhuring Kabudayan Jawa - Merawat keluhuran budaya Jawa untuk generasi mendatang.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Menu Cepat</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#beranda" class="hover:text-white transition-colors">Beranda</a></li>
+                    <li><a href="#tentang" class="hover:text-white transition-colors">Tentang Kami</a></li>
+                    <li><a href="#program" class="hover:text-white transition-colors">Program</a></li>
+                    <li><a href="#galeri" class="hover:text-white transition-colors">Galeri</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Program</h4>
+                <ul class="space-y-2 text-gray-400">
+                    <li><a href="#program" class="hover:text-white transition-colors">Seni Tari</a></li>
+                    <li><a href="#program" class="hover:text-white transition-colors">Karawitan</a></li>
+                    <li><a href="#program" class="hover:text-white transition-colors">Macapat</a></li>
+                    <li><a href="#program" class="hover:text-white transition-colors">Seni Rupa</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-lg mb-4">Kontak WhatsApp</h4>
+                <ul class="space-y-3 text-gray-400">
+                    <li>
+                        <a href="https://wa.me/6282319727184?text=Halo%20Ki%20Agus,%20saya%20ingin%20bertanya%20tentang%20Sanggar%20Pinuju%20Hening" target="_blank" class="hover:text-green-400 transition-colors flex items-center">
+                            <i class="fab fa-whatsapp mr-2 text-green-500"></i>
+                            <div>
+                                <p class="text-white text-sm font-semibold">Ki M Agus Supriadi</p>
+                                <p class="text-xs">0823 1972 7184</p>
+                            </div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/6285707409284?text=Halo%20Ki%20Wahyu,%20saya%20ingin%20bertanya%20tentang%20Sanggar%20Pinuju%20Hening" target="_blank" class="hover:text-green-400 transition-colors flex items-center">
+                            <i class="fab fa-whatsapp mr-2 text-green-500"></i>
+                            <div>
+                                <p class="text-white text-sm font-semibold">Ki Wahyu Widodo</p>
+                                <p class="text-xs">0857 0740 9284</p>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+                <div class="flex space-x-3 mt-4">
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-700 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-700 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="w-10 h-10 bg-gray-800 hover:bg-green-700 rounded-full flex items-center justify-center transition-all">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="border-t border-gray-800 pt-8 text-center text-gray-400 text-sm">
+            <p>&copy; 2024 Sanggar Seni Budaya Pinuju Hening. Semua Hak Dilindungi.</p>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 50) {
+            navbar.classList.remove('bg-transparent');
+            navbar.classList.add('bg-green-900', 'shadow-lg');
+        } else {
+            navbar.classList.add('bg-transparent');
+            navbar.classList.remove('bg-green-900', 'shadow-lg');
+        }
+    });
+
+    // Mobile menu toggle
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+
+    // Close mobile menu when clicking nav links
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
+    });
+
+    // Form submission
+    document.getElementById('contact-form').addEventListener('submit', (e) => {
+        e.preventDefault();
+        alert('Terima kasih! Pesan Anda telah terkirim. Kami akan segera menghubungi Anda.');
+        e.target.reset();
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                const offset = 80;
+                const targetPosition = target.offsetTop - offset;
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+</script>
+<script>(function(){document.addEventListener("click",function(e){var a=e.target.closest("[data-product-id]");if(!a)return;e.preventDefault();var pid=a.getAttribute("data-product-id");if(pid)parent.postMessage({type:"ecto-artifact-link-click",productId:pid},"*")})})();</script>
+</body>
+</html>
